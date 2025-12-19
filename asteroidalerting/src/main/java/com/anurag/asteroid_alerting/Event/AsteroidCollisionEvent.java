@@ -1,6 +1,5 @@
 package com.anurag.asteroid_alerting.Event;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AsteroidCollisionEvent {
-    private String asteroidName;
-    private String closeApproachDate;
-    private String missDistanceKilometers;
-    private double estimatedDiameterAvgMeters;
+	private String recipientEmail;
+	private String emailBody;
 }

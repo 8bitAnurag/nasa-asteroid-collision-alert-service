@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AsteroidCollisionEvent {
-    private String asteroidName;
-    private String closeApproachDate;
-    private String missDistanceKilometers;
-    private double estimatedDiameterAvgMeters;
+    private String recipientEmail;
+    /**
+     * Full email body containing details for all hazardous asteroids.
+     * This is prepared by the asteroid-alerting service so we only send one email.
+     */
+    private String emailBody;
 }
