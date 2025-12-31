@@ -49,32 +49,42 @@ The two microservices communicate asynchronously via **Kafka Topics**.
 4.  **Notification Service** consumes this message.
 5.  It fetches all subscribed emails from MySQL and triggers an SMTP email.
 
+## 🧩 System Architecture & Communication
+
+The two microservices communicate asynchronously via **Kafka Topics**.
+
+### Communication Flow
+The diagram below illustrates the vertical data flow from NASA's satellite data down to the user's inbox.
+
 ```mermaid
-flowchart LR
+flowchart TD
     %% Styling Definitions
-    classDef nasa fill:#4285F4,stroke:#fff,stroke-width:2px,color:white,rx:10,ry:10;
+    classDef nasa fill:#0B3D91,stroke:#fff,stroke-width:2px,color:white,rx:10,ry:10;
     classDef service fill:#34A853,stroke:#fff,stroke-width:2px,color:white,rx:5,ry:5;
     classDef kafka fill:#FABB05,stroke:#fff,stroke-width:4px,stroke-dasharray: 5 5,color:black,rx:50,ry:50;
     classDef database fill:#EA4335,stroke:#fff,stroke-width:2px,color:white;
+    classDef smtp fill:#D14836,stroke:#fff,stroke-width:2px,color:white,rx:10,ry:10;
     classDef user fill:#673AB7,stroke:#fff,stroke-width:2px,color:white,rx:10,ry:10;
 
     %% Nodes
-    A[☁️ NASA API]:::nasa
+    A[🛰️ NASA NeoWs API]:::nasa
     B[🛠️ Asteroid Service]:::service
-    K((🔁 Kafka Topic)):::kafka
+    K((kafka-topic)):::kafka
     C[📬 Notification Service]:::service
     D[(💾 MySQL DB)]:::database
-    E>📩 User Email]:::user
+    E[📧 SMTP / Gmail]:::smtp
+    F>🙎 User Inbox]:::user
 
     %% Connections
-    A -- "1. JSON Data" --> B
-    B -- "2. Publish Hazard Event" --> K
+    A -- "1. Poll Data" --> B
+    B -- "2. Publish Event" --> K
     K -- "3. Consume Event" --> C
-    C -- "4. Query Users" --> D
-    C -- "5. Send SMTP Alert" --> E
+    C -- "4. Fetch Subscriptions" --> D
+    C -- "5. Send Email" --> E
+    E -.-> F
 
-    %% Link Styles (Optional for GitHub, but good for other renderers)
-    linkStyle 0 stroke:#4285F4,stroke-width:2px;
+    %% Link Styles
+    linkStyle 0 stroke:#0B3D91,stroke-width:2px;
     linkStyle 1,2 stroke:#FABB05,stroke-width:3px;
     linkStyle 3 stroke:#EA4335,stroke-width:2px;
-    linkStyle 4 stroke:#673AB7,stroke-width:2px;
+    linkStyle 4 stroke:#D14836,stroke-width:2px;
