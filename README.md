@@ -88,3 +88,21 @@ flowchart TD
     linkStyle 1,2 stroke:#FABB05,stroke-width:3px;
     linkStyle 3 stroke:#EA4335,stroke-width:2px;
     linkStyle 4 stroke:#D14836,stroke-width:2px;
+```
+
+## 🚀 How to Run Locally
+
+This project uses **Docker** to manage the heavy infrastructure (Kafka, Zookeeper, MySQL) so you don't have to install them manually.
+
+### 📋 Prerequisites
+* **Java 21** installed.
+* **Docker Desktop** installed and running.
+* **NASA API Key** (Get it freely [here](https://api.nasa.gov/)).
+* **Gmail App Password** (Required if using Gmail for SMTP. [Guide here](https://support.google.com/accounts/answer/185833)).
+
+---
+
+### Step 1: Clone the Repository
+```bash
+git clone [https://github.com/8bitAnurag/nasa-asteroid-collision-alert-service.git](https://github.com/8bitAnurag/nasa-asteroid-collision-alert-service.git)
+cd nasa-asteroid-collision-alert-service
