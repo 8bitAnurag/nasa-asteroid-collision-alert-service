@@ -9,6 +9,8 @@ services:
     envVars:
       - key: ALERT_DELIVERY_MODE
         value: http
+      - key: EMAIL_WEBHOOK_URL
+        sync: false
       - key: BREVO_API_KEY
         sync: false
       - key: MAIL_FROM
