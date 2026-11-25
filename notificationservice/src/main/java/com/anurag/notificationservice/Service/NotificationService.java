@@ -5,11 +5,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@ConditionalOnProperty(name = "alert.delivery.mode", havingValue = "kafka", matchIfMissing = true)
 public class NotificationService {
 
     private final EmailService emailService;
@@ -27,7 +29,6 @@ public class NotificationService {
                     objectMapper.readValue(eventMessage, AsteroidCollisionEvent.class);
             log.info("Notification Event Received: {}", notificationEvent);
 
-            // Directly send email for this event instead of saving to database
             emailService.sendAsteroidAlertEmail(notificationEvent);
 
         } catch (JsonProcessingException e) {
