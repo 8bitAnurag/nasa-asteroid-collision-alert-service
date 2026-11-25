@@ -9,13 +9,9 @@ services:
     envVars:
       - key: ALERT_DELIVERY_MODE
         value: http
-      - key: MAIL_HOST
-        value: smtp.gmail.com
-      - key: MAIL_PORT
-        value: "587"
-      - key: MAIL_USERNAME
+      - key: BREVO_API_KEY
         sync: false
-      - key: MAIL_PASSWORD
+      - key: MAIL_FROM
         sync: false
 
   - type: web
@@ -29,10 +25,7 @@ services:
       - key: ALERT_DELIVERY_MODE
         value: http
       - key: NOTIFICATION_SERVICE_URL
-        fromService:
-          type: web
-          name: asteroid-notification-service
-          property: url
+        value: https://asteroid-notification-service.onrender.com
       - key: NASA_API_KEY
         sync: false
       - key: CORS_ALLOWED_ORIGINS
